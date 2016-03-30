@@ -1,0 +1,31 @@
+﻿<Page x:Class="SeriousGameWPF.GameStartPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+	  xmlns:s="clr-namespace:SeriousGameWPF.Static"
+      xmlns:l="clr-namespace:SeriousGameWPF"
+      xmlns:base="clr-namespace:SeriousGameWPF.Games.Base"
+      mc:Ignorable="d" 
+      d:DesignHeight="300" d:DesignWidth="300"
+	Title="GameStartPage">
+	<Page.Resources>
+		<DataTemplate x:Key="GameModeTemplate">
+        <Viewbox  d:DesignWidth="200" d:DesignHeight="200" Width="{Binding Source={x:Static base:GameMode.YSize}}" Height="{Binding Source={x:Static base:GameMode.XSize}}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="{Binding Margin}" Style="{DynamicResource MainMenuViewBoxStyle1}" MouseLeftButtonDown="Viewbox_MouseLeftButtonDown">
+			<Border BorderThickness="1" Style="{DynamicResource MainMenuBorderStyle1}">
+				<Grid Style="{DynamicResource MainMenuGridStyle1}" Height="100" Width="100">
+                        <TextBlock FontSize="{Binding Source={x:Static s:MainMenuHandler.GameMenuFontSize},Mode=OneWay}" HorizontalAlignment="Center" Height="50"  TextWrapping="Wrap" TextAlignment="Center" Text="{Binding GameDesc}" VerticalAlignment="Center" Width="100" Style="{DynamicResource MainMenuTextBlockStyle1}"/>
+					
+				</Grid>
+				</Border>
+		</Viewbox>
+	</DataTemplate>
+	<ItemsPanelTemplate x:Key="ItemsPanelTemplate1">
+		<Canvas IsItemsHost="True"/>
+	</ItemsPanelTemplate>
+	 </Page.Resources>
+
+    <Canvas VerticalAlignment="Top" HorizontalAlignment="Left"  Height="{Binding Path=CanvasHeight}" Width="{Binding Path=CanvasWidth}">
+        <ItemsControl DataContext="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Page}}}" x:Name="it" ItemsSource="{Binding SelectedGameModes}" ItemTemplate="{StaticResource GameModeTemplate}" ItemsPanel="{StaticResource ItemsPanelTemplate1}"/>
+    </Canvas>
+</Page>
